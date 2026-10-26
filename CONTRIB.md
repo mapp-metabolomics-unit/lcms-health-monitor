@@ -35,7 +35,7 @@ List of functions to be implemented. Draft of first discussion (PMA, Marco, Coli
             
 
     - MS
-        - MS status: pings the user in case an error or warning appears on the LC system
+        - MS status: pings the user in case an error or warning appears on the MS system
         - MS performance
             - for each standards + 1 feature of each QC (used to improve coverage of mass range)
                 - m/z 
