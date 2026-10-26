@@ -55,9 +55,19 @@ List of functions to be implemented. Draft of first discussion (PMA, Marco, Coli
 
 ## Start here
 
-1. Read the current document. Meet the team and discuss the goal and functions with them. Reformulate in your own words the proposal of the project in the section below. 
+1. Read the current document. Meet the team and discuss the goal and functions with them. Reformulate in your own words the proposal of the project in the section below.
+2. Torough bibliography overview of existing solution.
+3. Manually treat a file from A-Z (spotting it in the network drive, open and treat in mzmine)
+4. Draft an overall schema
 
 ## Proposal
+
+
+## Ressources
+
+- https://github.com/wkumler/mzsql
+- https://github.com/Rappsilber-Laboratory/MetaXtract
+- https://github.com/oolonek/mzmlwatcher
 
 ## Prioritized task list
 
