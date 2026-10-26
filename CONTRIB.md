@@ -61,7 +61,9 @@ List of functions to be implemented. Draft of first discussion (PMA, Marco, Coli
 4. Draft an overall schema
 
 ## Proposal
+Write software to track health performance of HF and HFX LC–MS systems of the MAPP platform. Monitoring should include to allow tracking long-term performance across injections with the help of several associated metadata variables and graphs for quality control. Besides metadata directly extracted from chromatograms and spectra, include additional information like pressure of QC + blanks from thermo RAW files. Ideally, this is packed into a GUI app (either Rust or Python as back end + SQL database to store metadata and mzml files). 
 
+If possible, try to implement a system that ideally pings designated user(s) in case of errors or warnings in the LC-MS systems or at the very least keeps track of such.
 
 ## Ressources
 
