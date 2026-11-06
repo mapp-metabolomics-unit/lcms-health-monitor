@@ -61,15 +61,50 @@ List of functions to be implemented. Draft of first discussion (PMA, Marco, Coli
 4. Draft an overall schema
 
 ## Proposal
-Write software to track health performance of HF and HFX LC–MS systems of the MAPP platform. Monitoring should include to allow tracking long-term performance across injections with the help of several associated metadata variables and graphs for quality control. Besides metadata directly extracted from chromatograms and spectra, include additional information like pressure of QC + blanks from thermo RAW files. Ideally, this is packed into a GUI app (either Rust or Python as back end + SQL database to store metadata and mzml files). 
+The goal is to build a software tool that gives the MAPP platform a way to quickly assess the operational health of its two LC-MS instruments (HF and HFX).
 
-If possible, try to implement a system that ideally pings designated user(s) in case of errors or warnings in the LC-MS systems or at the very least keeps track of such.
+The approach rests on **longitudinal quality-control (QC) injections** - standards and blanks run on a recurring schedule - so that every injection produces a set of performance metrics that can be tracked over time.
 
-## Ressources
+**Measured performance (QC-derived metrics):** for each standard and a representative feature per QC (chosen to span the full retention-time and mass range), the following are extracted:
+  - *LC side:* retention time, tailing factor, FWHM, number of data points, and - where available from Thermo RAW files - column pressure and column identity tracking.
+  - *MS side:* m/z accuracy (ppm), signal intensity/area, MS/MS quality (intensity of the most abundant fragment, number of fragments), and the count of annotated features per QC.
+
+**Instrument status:** errors and warnings from the LC or MS hardware are flagged and (ideally) push a notification to designated users, independently of analytical performance. Currently unclear if these signals are accessible directly from the instruments without proprietary vendor software, so this is treated as a stretch goal pending feasibility evaluation.
+
+Ideally, all of this would be packed into a **dashboard** where the user selects an instrument and sees dynamic plots of metrics plotted against injection date, plus a viewer for individual chromatograms and their associated spectra. The goal is a single interface that answers "*is this instrument performing normally?*" at a glance.
+
+**Implementation notes**:
+- **Database:** SQL database to store metadata and mzML files.
+- **Front-end / GUI:** Still open. The tool is a locally installed application, not a hosted web app. Options include a native desktop framework (Rust with Tauri, Python with PyQt) or a web-based UI (React + D3.js inside Tauri, or Shiny bound to localhost).
+- **Existing ecosystem:** Existing toolkits could be adapted or expanded rather than building from scratch.
+
+## Existing tools
+
+### R
+
+- [MSstatsQC](https://github.com/eralpdogu/MSstatsQC): already implements longitudinal QC monitoring for LC-MS (control charts, change-point detection, supervised ML classification of run quality); designed primarily for targeted proteomics but the statistical framework is general.
+- [QC4metabolomics](https://github.com/stanstrup/QC4Metabolomics): tracks m/z + RT pairs for user-defined compounds per instrument, extracts ppm/RT/intensity/peak-shape, timeline dashboard with Shiny + ggplot2/plotly, MariaDB. However, its Docker-based deployment is resource-heavy (~19 GB disk, 7-8 GB RAM), so it is more of a reference than a starting point.
+- [RforMassSpectrometry](https://github.com/rformassspectrometry/RforMassSpectrometry): a broader suite of packages covering raw-data handling (Spectra), feature detection (xcms), quantification, and annotation; could supply the data-processing layer that feeds metrics into the monitoring dashboard?
+
+### Python
+- [Rapid QC-MS](https://github.com/czbiohub-sf/Rapid-QC-MS): local Python app (CZ Biohub San Francisco, *Anal. Chem.* 2024); tracks retention time, m/z, and intensity per injection; Plotly Dash dashboard with real-time updates; Slack/email alerts on QC failure; designed for Thermo Orbitrap workflows. Gaps: no MS/MS fragment metrics, no column pressure/ID extraction, no annotated feature count. Note: **is Windows-first** (requires MSConvert + MS-DIAL as external dependencies); dashboard is browser-based (Plotly Dash), not a native GUI. Possibly unmaintained (last update July 2024). **Most promising as a starting point**.
+- [π-MetaboQC](https://github.com/PHOENIXcenter/pi-metaboqc): feature-intensity matrix QC and preprocessing pipeline (missingness triage, blank/QC filtering, batch correction, normalization, report generation). More of a data-curation tool than an instrument dashboard; relevant for the "annotated feature count" side?
+- [MaSpeQC](https://github.com/MonashProteomics/MaSpeQC): **closest in scope**; interactive LC-MS/MS instrumentation QC (*J. Proteome Res.* 2026); tracks m/z (ppm + mDa), RT, FWHM, and normalised area for up to 15 user-defined components per QC; extracts detailed pressure profiles from Thermo RAW files (requires vendor-provided non-redistributable RawFileReader libraries); email alerts on threshold breach; MS/MS metrics limited to total MS2 spectra count, peptide spectrum matches, and unique peptides (proteomics-oriented). Gaps: no fragment-level MS/MS metrics (fragment count, max fragment intensity), no column ID tracking, no annotated feature count. Heavier multi-service web stack (Node.js + MySQL + Python + mzMine2 + Morpheus).
+- [QCScreen](https://sourceforge.net/projects/qcscreen/): conceptually close (m/z, RT, mass accuracy, feature area across files; Qt GUI + SQLite) but very dated (Python 2.6, Windows XP/7 only, unmaintained since 2015).
+- [AutoQ4MS](https://github.com/Landeswasserversorgung/AutoQ4MS) - checked and rejected: requires a MATLAB license.
+
+## Resources
 
 - https://github.com/wkumler/mzsql
 - https://github.com/Rappsilber-Laboratory/MetaXtract
 - https://github.com/oolonek/mzmlwatcher
+- https://github.com/eralpdogu/MSstatsQC
+- https://github.com/stanstrup/QC4Metabolomics
+- https://github.com/rformassspectrometry/RforMassSpectrometry
+- https://github.com/czbiohub-sf/Rapid-QC-MS
+- https://github.com/PHOENIXcenter/pi-metaboqc
+- https://github.com/MonashProteomics/MaSpeQC
+- https://github.com/Landeswasserversorgung/AutoQ4MS
 
 ## Prioritized task list
 
