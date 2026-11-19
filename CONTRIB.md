@@ -6,16 +6,21 @@ Write a software to monitor the health state of LCMS systems. In this precise ca
 
 ## To be resolved 
 
-@Colin
+
 
 - [x] return taxon name associated to each QC
 - [x] return sample_id associated to each QC
-- [ ] return identity of each spiked standard (Pubchem id, link) and concentration
-- [ ] create a batch_id and associate it to QC and blanks
+    - **dbgi_001031** is _Vachellia karroo_ https://emi-collection.unifr.ch/directus/admin/content/Field_Data/66810
+    - **dbgi_001032** is _Sequoiadendron giganteum_ https://emi-collection.unifr.ch/directus/admin/content/Field_Data/66816
+        - Here are the compound reported in this species so far https://lotus-initiative.github.io/lotus-explore-rs/search?taxon=Sequoiadendron%20giganteum 
+- [x] return identity of each spiked standard (Pubchem id, link) and concentration
+    Three standards where systematically spiked at a concentration of 10 µM
+      - [bromocresol green](https://www.wikidata.org/wiki/Q418613)
+      - [bromocresol purple](https://www.wikidata.org/wiki/Q425039)
+      - [berberine](https://www.wikidata.org/wiki/Q176525)
+    
+- [ ] create a batch_id and associate it to QC and blanks @naldruk
 
-- **dbgi_001031** is _Vachellia karroo_ https://emi-collection.unifr.ch/directus/admin/content/Field_Data/66810
-- **dbgi_001032** is _Sequoiadendron giganteum_ https://emi-collection.unifr.ch/directus/admin/content/Field_Data/66816
-    - Here are the compound reported in this species so far https://lotus-initiative.github.io/lotus-explore-rs/search?taxon=Sequoiadendron%20giganteum 
 
 ## Functions
 
