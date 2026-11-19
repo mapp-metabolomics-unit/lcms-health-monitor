@@ -176,9 +176,16 @@ None of the three tools implements column pressure extraction from Thermo RAW fi
 
 ## Resources
 
+### SQL & MS
+
+- https://github.com/idsm-src/pgms
 - https://github.com/wkumler/mzsql
-- https://github.com/Rappsilber-Laboratory/MetaXtract
+- https://github.com/rformassspectrometry/MsBackendSql
 - https://github.com/oolonek/mzmlwatcher
+
+### Varia 
+
+- https://github.com/Rappsilber-Laboratory/MetaXtract
 - https://github.com/eralpdogu/MSstatsQC
 - https://github.com/stanstrup/QC4Metabolomics
 - https://github.com/rformassspectrometry/RforMassSpectrometry
