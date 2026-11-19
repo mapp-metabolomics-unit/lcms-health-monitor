@@ -8,11 +8,13 @@ Write a software to monitor the health state of LCMS systems. In this precise ca
 
 @Colin
 
-- [ ] return taxon name associated to each QC
-- [ ] return sample_id associated to each QC
+- [x] return taxon name associated to each QC
+- [x] return sample_id associated to each QC
 - [ ] return identity of each spiked standard (Pubchem id, link) and concentration
 - [ ] create a batch_id and associate it to QC and blanks
 
+- **dbgi_001031** is _Vachellia karroo_ https://emi-collection.unifr.ch/directus/admin/content/Field_Data/66810
+- **dbgi_001032** is _Sequoiadendron giganteum_ https://emi-collection.unifr.ch/directus/admin/content/Field_Data/66816
 
 ## Functions
 
