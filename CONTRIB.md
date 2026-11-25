@@ -193,6 +193,7 @@ None of the three tools implements column pressure extraction from Thermo RAW fi
 
 ### Varia 
 
+- https://github.com/mobiusklein/mzdata
 - https://github.com/Rappsilber-Laboratory/MetaXtract
 - https://github.com/eralpdogu/MSstatsQC
 - https://github.com/stanstrup/QC4Metabolomics
